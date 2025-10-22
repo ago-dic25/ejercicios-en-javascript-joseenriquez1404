@@ -35,21 +35,43 @@
     
     
     // 1. Filter para filtrar la lista de inventores que nacieron en los 1500
+    const result = inventors.filter((inventors) => inventors.year === 1500)
+    console.log("Los inventores que nacieron en los 1500", result)
 
     // Array.prototype.map()
     // 2. Un arreglo de los apellidos de los inventores
+    const lastNames = inventors.map(function(inventors){
+      return inventors.last
+    })
+    console.log("Los apellidos son:", lastNames);
     
     // Array.prototype.sort()
     // 3. Ordenar los inventores por fecha de nacimiento, de los mas viejos a los mas jovenes
+    const sortedByAge = inventors.sort((a,b) => a.year - b.year);
+    console.log(sortedByAge)
     
     // Array.prototype.reduce()
     // 4. Cuantos años vivieron todos en total?
+    const totalYearsLived = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year)
+    }, 0)
+    console.log(totalYearsLived);
 
     // 5. Ordenar los inventores por años que vivieron
+    const sortedByAge2 = inventors.sort((a, b) => {
+      const ageA = a.passed - a.year;
+      const ageB = b.passed - b.year;
+      return ageB - ageA; // mayor a menor
+    });
+
+    console.log(sortedByAge2);
 
 
     // 6. sort 
     // Ordenar la gente alfabeticamente por apellido 
+    const sortedByLastName = inventors.sort((a, b) => a.last.localeCompare(b.last));
+
+    console.log(sortedByLastName);
 
     // 7. Reduce
     // Sumar las instancias de cada uno de los siguientes medios de transporte
