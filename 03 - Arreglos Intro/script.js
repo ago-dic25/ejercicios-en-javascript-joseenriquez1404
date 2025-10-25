@@ -1,51 +1,114 @@
 var alumnos = [
-    "Carlos Manuel",
-    "Cesar Oziel",
-    "Regina",
-    "Diego Leonardo",
-    "Andrea Carolina",
-    "Mayela Mayté",
-    "Eder Abraham",
-    "Diego Alonso",
-    "Naomi Michelle",
-    "Eder Abisai",
-    "Regina", //Dariela
-    "Carlos", //Manuel
-    "Carlos" //Alejandro
-,];
+  {
+    nombre: "Carlos Manuel",
+    carrera: "LCC",
+    semestre: 5,
+  },
+  {
+    nombre: "Cesar Oziel",
+    carrera: "LMAD",
+    semestre: 3,
+  },
+  {
+    nombre: "Regina",
+    carrera: "LSTI",
+    semestre: 8,
+  },
+  {
+    nombre: "Diego Leonardo",
+    carrera: "LF",
+    semestre: 2,
+  },
+  {
+    nombre: "Andrea Carolina",
+    carrera: "LM",
+    semestre: 7,
+  },
+  {
+    nombre: "Mayela Mayté",
+    carrera: "LA",
+    semestre: 4,
+  },
+  {
+    nombre: "Eder Abraham",
+    carrera: "LCC",
+    semestre: 9,
+  },
+  {
+    nombre: "Diego Alonso",
+    carrera: "LMAD",
+    semestre: 1,
+  },
+  {
+    nombre: "Naomi Michelle",
+    carrera: "LSTI",
+    semestre: 6,
+  },
+  {
+    nombre: "Eder Abisai",
+    carrera: "LF",
+    semestre: 3,
+  },
+  {
+    nombre: "Regina",
+    carrera: "LM",
+    semestre: 5,
+  }, // Dariela
+  {
+    nombre: "Carlos",
+    carrera: "LA",
+    semestre: 2,
+  }, // Manuel
+  {
+    nombre: "Carlos",
+    carrera: "LCC",
+    semestre: 8,
+  }, // Alejandro
+];
 
-//elimina el ultimo elemento del arreglo
-alumnos.pop();
-
-//Agregar 
-alumnos.push("Edgar Aurelio");
-
-//elimina al inicio
-alumnos.shift();
-
-//Agrega al inicio
-alumnos.unshift("Axel Gabriel");
-
-//Cambia valor de elemento
-alumnos[4]=  "Carlos Manuel";
+const list = document.querySelector(".student-list");
+const inputNombre = document.querySelector(".new-student");
+const inputCarrera = document.querySelector('.new-student-career');
+const inputSemestre = document.querySelector('.new-student-semester');
+const button = document.querySelector(".add-student");
 
 
-console.log(alumnos.indexOf("Eder Abisai"));
-console.log(alumnos.includes("Alejandro"));
+function renderList(){
+    
+    list.innerHTML = "";
+    alumnos.forEach((alumno) => {
+        const newLi = document.createElement("li");
+	newLi.innerHTML = `
+            ${alumno.nombre} (${alumno.carrera}) - Semestre: <strong>${alumno.semestre}</strong>
+        `;
+	list.appendChild(newLi)
+    })
+}
 
-console.log(alumnos.find(nombre => nombre == "Regina"));
-//Equivale a 
-// for(var i = 0; i <alumnos.length; i++){
-//     if(alumnos[i] == "Regina"){
-//         console.log(alumnos[i]);
-//         break;
-//     }
-// }
+renderList();
 
-console.log(alumnos.findIndex(nombre => nombre=="Regina"));
-// for(var j= 0; j < alumnos.length; j++){
-//     if(alumnos[j] == "Regina"){
-//         console.log(j);
-//         break;
-//     }
-// }
+button.addEventListener("click", () => {
+    const nombre = inputNombre.value.trim();
+    const carrera = inputCarrera.value.trim().toUpperCase(); 
+    const semestre = parseInt(inputSemestre.value.trim()) || 0; 
+    
+    if (nombre !== "" && semestre >= 1 && semestre <= 9) {
+        
+        const nuevoAlumno = {
+            nombre: nombre,
+            carrera: carrera,
+            semestre: semestre
+        };
+        
+        alumnos.push(nuevoAlumno); 
+        renderList();             
+        
+        inputNombre.value = "";
+        inputCarrera.value = "";
+        inputSemestre.value = "";
+    } else {
+        alert("Por favor, ingresa un nombre y un semestre válido (1-9).");
+    }
+});
+
+renderList();
